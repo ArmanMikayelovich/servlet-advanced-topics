@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+<listener>
+    <listener-class>com.picsartacademy.java.listeners.JDBCDataSourceListener</listener-class>
+</listener>
+    
+    <servlet>
+        <servlet-name>timeServlet</servlet-name>
+        <servlet-class>com.picsartacademy.java.servlets.TimeServletWithInitParams</servlet-class>
+        <init-param>
+            <param-name>prefix</param-name>
+            <param-value>time to sleep</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>timeServlet</servlet-name>
+        <url-pattern>/time</url-pattern>
+    </servlet-mapping>
+
+    
+    <servlet>
+        <servlet-name>servetWithParams</servlet-name>
+        <servlet-class>com.picsartacademy.java.servlets.ServletWithContextParams</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servetWithParams</servlet-name>
+        <url-pattern>/context</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>asyncGetFromDBServlet</servlet-name>
+        <servlet-class>com.picsartacademy.java.servlets.ExploreDatabaseAsyncServlet</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>asyncGetFromDBServlet</servlet-name>
+        <url-pattern>/get-async</url-pattern>
+    </servlet-mapping>
+
+<servlet>
+    <servlet-name>sessionExample</servlet-name>
+    <servlet-class>com.picsartacademy.java.servlets.ShoppingCartWithSessionServlet</servlet-class>
+</servlet>
+    <servlet-mapping>
+        <servlet-name>sessionExample</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LastVisitServlet</servlet-name>
+        <servlet-class>com.picsartacademy.java.servlets.LastVisitServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LastVisitServlet</servlet-name>
+        <url-pattern>/last-visit</url-pattern>
+    </servlet-mapping>
+
+<!--    Context Parameters-->
+    <context-param>
+        <param-name>english</param-name>
+        <param-value>Hello</param-value>
+    </context-param>
+    <context-param>
+        <param-name>russian</param-name>
+        <param-value>Privet</param-value>
+    </context-param>
+    <context-param>
+        <param-name>armenian</param-name>
+        <param-value>Baylus</param-value>
+    </context-param>
+
+
+<!--    Audit filter-->
+    <!-- Define the filter -->
+    <filter>
+        <filter-name>RequestLoggingFilter</filter-name>
+        <filter-class>com.picsartacademy.java.filters.RequestLoggingFilter</filter-class>
+    </filter>
+
+    <!-- Map the filter -->
+    <filter-mapping>
+        <filter-name>RequestLoggingFilter</filter-name>
+        <url-pattern>/*</url-pattern> <!-- Apply filter to all requests -->
+    </filter-mapping>
+
+
+<!--    ERROR HANDLING-->
+
+    <servlet>
+        <servlet-name>errorHalnder</servlet-name>
+        <servlet-class>com.picsartacademy.java.servlets.ErrorHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>errorHalnder</servlet-name>
+        <url-pattern>/errorHandler</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/errorHandler</location>
+    </error-page>
+
+</web-app>
